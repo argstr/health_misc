@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .toc { width: 250px; padding: 20px; background: #f8f9fa; height: 100vh; overflow-y: auto; position: fixed; }
+        .content { margin-left: 270px; padding: 40px; max-width: 800px; }
+        .toc h3 { margin-top: 0; }
+        .toc a { display: block; padding: 5px 0; color: #0366d6; text-decoration: none; }
+        .toc a:hover { background: #e1e4e8; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            const toc = document.querySelector('.toc');
+            
+            headers.forEach((header, index) => {
+                if (index === 0) return; // Skip first heading
+                const id = 'heading-' + index;
+                header.id = id;
+                const link = document.createElement('a');
+                link.href = '#' + id;
+                link.textContent = header.textContent;
+                link.style.paddingLeft = (parseInt(header.tagName[1]) - 1) * 15 + 'px';
+                toc.appendChild(link);
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="toc">
+        <h3>Contents</h3>
+    </nav>
+    <main class="content">
+        {{ content }}
+    </main>
+</body>
+</html>
